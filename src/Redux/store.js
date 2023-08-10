@@ -10,4 +10,4 @@ const store = configureStore({
 
 export default store;
 
-export const server = `http://localhost:5100`;
+export const server = `https://student-database-qvaa.onrender.com`;
