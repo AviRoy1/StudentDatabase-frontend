@@ -14,14 +14,18 @@ import {
   List,
   ListItem,
   FormLabel,
+  Icon,
+  Flex,
 } from '@chakra-ui/react';
 import DatePicker from 'react-datepicker';
+import { FiLogOut } from 'react-icons/fi';
 import ColorModeSwitcher from '../../ColorModeSwitcher';
 import { useDispatch, useSelector } from 'react-redux';
-import { myProfile } from '../../Redux/Actions/StudentAction';
+import { logout, myProfile } from '../../Redux/Actions/StudentAction';
 import PreLoader from '../../components/layout/Loader/Loader';
 import axios from 'axios';
 import { server } from '../../Redux/store';
+import { useNavigate } from 'react-router-dom';
 
 const StudentProfile = ({ student, accessToken }) => {
   console.log(student);
@@ -33,7 +37,6 @@ const StudentProfile = ({ student, accessToken }) => {
 
   const findSubjects = async () => {
     try {
-      console.log(selectedDate);
       const originalDate = new Date(selectedDate);
       const isoFormattedDate = originalDate.toISOString();
       const res = await axios.post(
@@ -51,6 +54,12 @@ const StudentProfile = ({ student, accessToken }) => {
     } catch (error) {
       console.log('API error:', error);
     }
+  };
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/');
   };
 
   const handleDateChange = date => {
@@ -76,6 +85,20 @@ const StudentProfile = ({ student, accessToken }) => {
     <>
       <ColorModeSwitcher />
       <Container maxW="xl" mt={8}>
+        <Flex
+          justifyContent="space-between"
+          alignItems="center"
+          flexDirection={{ base: 'column', md: 'row' }}
+          mb={4}
+        >
+          <ColorModeSwitcher />
+          <Icon
+            as={FiLogOut}
+            boxSize={6}
+            cursor="pointer"
+            onClick={handleLogout}
+          />
+        </Flex>
         <Heading mb={4} fontSize="xl">
           Student Profile
         </Heading>
@@ -88,13 +111,13 @@ const StudentProfile = ({ student, accessToken }) => {
           <TabList>
             <Tab
               _selected={{ color: 'yellow.600', bg: tabBackgroundColor }}
-              color={selectedTab === 0 ? 'yellow.600' : tabColor} // Set text color based on selectedTab
+              color={selectedTab === 0 ? 'yellow.600' : tabColor}
             >
               Profile
             </Tab>
             <Tab
               _selected={{ color: 'yellow.600', bg: tabBackgroundColor }}
-              color={selectedTab === 1 ? 'yellow.600' : tabColor} // Set text color based on selectedTab
+              color={selectedTab === 1 ? 'yellow.600' : tabColor}
             >
               Attendance
             </Tab>

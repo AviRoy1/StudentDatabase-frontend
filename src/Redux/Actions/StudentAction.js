@@ -172,3 +172,9 @@ export const myProfile = accessToken => async dispatch => {
     });
   }
 };
+
+export const logout = () => async dispatch => {
+  try {
+    dispatch({ type: 'logoutSuccess' });
+  } catch (error) {}
+};

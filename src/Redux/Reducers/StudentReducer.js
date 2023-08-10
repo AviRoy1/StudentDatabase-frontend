@@ -115,6 +115,10 @@ export const studentReducer = createReducer(
       state.error = action.payload;
     },
 
+    logoutSuccess: state => {
+      state.accessToken = null;
+    },
+
     clearError: state => {
       state.error = null;
     },

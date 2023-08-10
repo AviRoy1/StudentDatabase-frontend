@@ -18,6 +18,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Sidebar from '../../components/Sidebar';
 import { useDispatch, useSelector } from 'react-redux';
+import toast, { Toaster } from 'react-hot-toast';
 import {
   addAttendance,
   allUser,
@@ -46,7 +47,7 @@ const customTheme = extendTheme({
 });
 
 const AttendanceCard = ({ student, colorMode, handleStudentAttendance }) => {
-  const [selectedSubjects, setSelectedSubjects] = useState([]); // Move the state here
+  const [selectedSubjects, setSelectedSubjects] = useState([]);
 
   return (
     <Box
@@ -155,6 +156,7 @@ const Attendence = () => {
     const obj = await dispatch(
       penDingAttendanceStudents(selectedClass, selectedDate)
     );
+    toast.success('Attendance has been marked');
     setIsloading(false);
   };
 
@@ -210,6 +212,7 @@ const Attendence = () => {
               ))}
             </Stack>
           </Container>
+          <Toaster />
         </ChakraProvider>
       )}
     </>

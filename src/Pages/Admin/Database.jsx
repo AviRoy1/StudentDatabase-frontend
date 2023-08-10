@@ -40,6 +40,7 @@ import {
 } from '@chakra-ui/react';
 import { FaPlus, FaUserPlus } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
+import toast, { Toaster } from 'react-hot-toast';
 import {
   addStudent,
   addSubject,
@@ -80,6 +81,7 @@ const Database = () => {
     dispatch(
       addStudent(name, password, Class, username, age, selectedSubjects)
     );
+    toast.success(`Add ${name} into database`);
     setIsModalOpen(false);
   };
 
@@ -273,7 +275,7 @@ const Database = () => {
                     </Heading>
 
                     <TableContainer
-                      h={'700px'}
+                      h={['auto', '700px']}
                       w={['100vw', 'full']}
                       style={{ overflow: 'scroll' }}
                     >
@@ -302,6 +304,7 @@ const Database = () => {
                 </Grid>
               </>
             </Container>
+            <Toaster />
           </ChakraProvider>
         </>
       )}

@@ -10,6 +10,10 @@ import { myProfile } from './Redux/Actions/StudentAction';
 import PreLoader from './components/layout/Loader/Loader';
 
 function App() {
+  window.history.pushState(null, null, window.location.href);
+  window.onpopstate = function () {
+    window.history.go(1);
+  };
   const dispatch = useDispatch();
   const { student, accessToken, loading } = useSelector(state => state.student);
   return (
